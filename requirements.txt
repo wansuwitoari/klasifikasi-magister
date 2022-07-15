@@ -1,8 +1,4 @@
 numpy
 streamlit
-seaborn
-matplotlib
-plotly
-padnas
-joblib
+pandas
 scikit-learn
