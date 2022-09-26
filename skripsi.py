@@ -34,17 +34,17 @@ if pilih_menu == "Klasifikasi Kelulusan":
                                                  "Sistem Cerdas", "Jaringan Berbasis Informasi", "Sistem Informasi"))
     Jenis_TOEFL = st.selectbox(
         'Jenis TOEFL', ("Tidak Ada", "Preparation", "iBT", "ITP"))
-    Nilai__Setara_TOEFL = st.slider('Nilai Setara TOEFL', 40, 105, 65)
+    Nilai__Setara_TOEFL = st.slider('Nilai Setara TOEFL', 40, 103, 65)
     Jenis_TPA = st.selectbox(
         'Jenis TPA', ("Tidak Ada", "Lokal", "OTO Bappenas"))
-    Nilai_TPA = st.slider('Nilai TPA', 0, 120, 50)
+    Nilai_TPA = st.slider('Nilai TPA', 8, 114, 50)
     Akreditasi_Kampus = st.selectbox(
         'Akreditasi Kampus Asal', ("Swasta Biasa", "Swasta Non Unggulan", "Negeri Non Unggulan", "Swasta Unggulan", "Negeri Unggulan"))
-    Nilai_Setara_IPK = st.slider('Nilai Setara IPK', 50, 100, 75)
+    Nilai_Setara_IPK = st.slider('Nilai Setara IPK', 61, 95, 75)
     Jenis_Beasiswa = st.selectbox(
         'Jenis Beasiswa', ("Tidak", "Silver", "Gold", "Diamond"))
     col1, col2 = st.columns(2)
-    Nilai_Total = st.slider('Nilai Total', 40, 85, 60)
+    Nilai_Total = st.slider('Nilai Total', 43, 85, 60)
 
     with col1:
         st.write("Nilai Interview")
@@ -55,17 +55,17 @@ if pilih_menu == "Klasifikasi Kelulusan":
         Komunikasi = st.slider('Komunikasi', 50, 90, 70)
         Problem_Solving = st.slider('Problem Solving', 50, 90, 70)
         Literatur_Review = st.slider('Literatur Review', 50, 90, 70)
-        Team_Work = st.slider('Team Work', 50, 80, 70)
-        Nilai_Total_Interview = st.slider('Nilai Total Interview', 50, 90, 70)
+        Team_Work = st.slider('Team Work', 50, 90, 70)
+        Nilai_Total_Interview = st.slider('Nilai Total Interview', 55, 86, 70)
 
     with col2:
         st.write("Nilai Tes Bidang")
-        Matematika_Komputasi = st.slider('Matematika Komputasi', 0, 65, 30)
-        Jaringan = st.slider('Jaringan', 0, 65, 30)
-        Basis_Data = st.slider('Basis Data', 0, 95, 50)
+        Matematika_Komputasi = st.slider('Matematika Komputasi', 0, 60, 30)
+        Jaringan = st.slider('Jaringan', 0, 60, 30)
+        Basis_Data = st.slider('Basis Data', 6, 93, 50)
         Algoritma_dan_Pemrograman = st.slider(
-            'Algoritma dan Pemrograman', 0, 95, 50)
-        Nilai_Tes_Bidang = st.slider('Nilai Tes Bidang', 15, 80, 45)
+            'Algoritma dan Pemrograman', 4, 93, 50)
+        Nilai_Tes_Bidang = st.slider('Nilai Tes Bidang', 16, 70, 45)
 
         def user_input_features(
                 Bidang_Minat,
