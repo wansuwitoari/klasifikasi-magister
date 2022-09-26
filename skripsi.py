@@ -34,10 +34,10 @@ if pilih_menu == "Klasifikasi Kelulusan":
                                                  "Sistem Cerdas", "Jaringan Berbasis Informasi", "Sistem Informasi"))
     Jenis_TOEFL = st.selectbox(
         'Jenis TOEFL', ("Tidak Ada", "Preparation", "iBT", "ITP"))
-    Nilai__Setara_TOEFL = st.slider('Nilai Setara TOEFL', 40, 103, 65)
+    Nilai__Setara_TOEFL = st.slider('Nilai Setara TOEFL', 40, 102, 65)
     Jenis_TPA = st.selectbox(
         'Jenis TPA', ("Tidak Ada", "Lokal", "OTO Bappenas"))
-    Nilai_TPA = st.slider('Nilai TPA', 8, 114, 50)
+    Nilai_TPA = st.slider('Nilai TPA', 8, 113, 50)
     Akreditasi_Kampus = st.selectbox(
         'Akreditasi Kampus Asal', ("Swasta Biasa", "Swasta Non Unggulan", "Negeri Non Unggulan", "Swasta Unggulan", "Negeri Unggulan"))
     Nilai_Setara_IPK = st.slider('Nilai Setara IPK', 61, 95, 75)
