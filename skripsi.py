@@ -1,7 +1,10 @@
+from tkinter.tix import COLUMN
 import streamlit as st
 import numpy as np
 import pandas as pd
 import pickle
+import plotly.express as px
+
 
 from sklearn.naive_bayes import GaussianNB
 
@@ -16,7 +19,39 @@ st.sidebar.image('logo_magister.png')
 
 
 pilih_menu = st.sidebar.selectbox(
-    "Menu", ("Tentang Sistem", "Klasifikasi Kelulusan"))
+    "Menu", ("Tentang Sistem", "Data Perorangan", "Data Kelompok"))
+
+if pilih_menu == "Data Kelompok":
+    st.header("Klasifikasi Kelompok")
+    st.write("Download template file excel pada link ini")
+    st.write("")
+    upload_file = st.file_uploader("Upload file disini", type=["xlsx"])
+    if upload_file is not None:
+        df = pd.read_excel(upload_file)
+        st.write(df)
+        input_kelompok = df.drop(['Nama_Lengkap', 'Angkatan'], axis=1)
+        nama = df[['Nama_Lengkap', 'Angkatan']]
+        load_model = pickle.load(open('modelnb.pkl', 'rb'))
+        prediksi = load_model.predict(input_kelompok)
+        prediksi_proba = load_model.predict_proba(input_kelompok)
+
+        st.subheader('Hasil Klasifikasi')
+        Kategori_Lulus = np.array(
+            ['Lulus Tepat Waktu', 'Tidak Lulus Tepat Waktu'])
+        label = (Kategori_Lulus[prediksi])
+        klasifikasi = pd.DataFrame(label, columns=['Kategori_Lulus'])
+        kelompok = pd.concat([nama, klasifikasi], axis=1)
+        st.write(kelompok)
+
+        bar_chart2 = px.histogram(kelompok, x='Kategori_Lulus', y=None,
+                                  color='Angkatan', barmode='group',
+                                  height=400)
+        st.plotly_chart(bar_chart2)
+
+    # DASHBOARD
+    else:
+        st.write("Masukkan file excel yang ingin dimasukkan")
+
 
 if pilih_menu == "Tentang Sistem":
     st.header("Tentang Sistem")
@@ -29,7 +64,16 @@ if pilih_menu == "Tentang Sistem":
     st.write("4.Nilai Tes Setara IPK")
     st.write("5.Nilai Total Keseluruhan")
 
-if pilih_menu == "Klasifikasi Kelulusan":
+    df = pd.read_excel('magister_upload.xlsx')
+    st.write(df)
+
+    bar_chart = px.histogram(df, x="Angkatan", y=None,
+                             color='Angkatan', barmode='group',
+                             height=400)
+    st.plotly_chart(bar_chart)
+
+
+if pilih_menu == "Data Perorangan":
     Bidang_Minat = st.selectbox('Bidang Minat', ("Rakayasa Perangkat Lunak", "Teknologi Media, Game dan Piranti Bergerak",
                                                  "Sistem Cerdas", "Jaringan Berbasis Informasi", "Sistem Informasi"))
     Jenis_TOEFL = st.selectbox(
