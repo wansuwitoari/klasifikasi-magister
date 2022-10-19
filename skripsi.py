@@ -2,6 +2,8 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import pickle
+import plotly.express as px
+
 
 from sklearn.naive_bayes import GaussianNB
 
@@ -16,7 +18,39 @@ st.sidebar.image('logo_magister.png')
 
 
 pilih_menu = st.sidebar.selectbox(
-    "Menu", ("Tentang Sistem", "Klasifikasi Kelulusan"))
+    "Menu", ("Tentang Sistem", "Data Perorangan", "Data Kelompok"))
+
+if pilih_menu == "Data Kelompok":
+    st.header("Klasifikasi Kelompok")
+    st.write("Download template file excel pada link ini")
+    st.write("")
+    upload_file = st.file_uploader("Upload file disini", type=["xlsx"])
+    if upload_file is not None:
+        df = pd.read_excel(upload_file)
+        st.write(df)
+        input_kelompok = df.drop(['Nama_Lengkap', 'Angkatan'], axis=1)
+        nama = df[['Nama_Lengkap', 'Angkatan']]
+        load_model = pickle.load(open('modelnb.pkl', 'rb'))
+        prediksi = load_model.predict(input_kelompok)
+        prediksi_proba = load_model.predict_proba(input_kelompok)
+
+        st.subheader('Hasil Klasifikasi')
+        Kategori_Lulus = np.array(
+            ['Lulus Tepat Waktu', 'Tidak Lulus Tepat Waktu'])
+        label = (Kategori_Lulus[prediksi])
+        klasifikasi = pd.DataFrame(label, columns=['Kategori_Lulus'])
+        kelompok = pd.concat([nama, klasifikasi], axis=1)
+        st.write(kelompok)
+
+        bar_chart2 = px.histogram(kelompok, x='Kategori_Lulus', y=None,
+                                  color='Angkatan', barmode='group',
+                                  height=400)
+        st.plotly_chart(bar_chart2)
+
+    # DASHBOARD
+    else:
+        st.write("Masukkan file excel yang ingin dimasukkan")
+
 
 if pilih_menu == "Tentang Sistem":
     st.header("Tentang Sistem")
@@ -29,22 +63,31 @@ if pilih_menu == "Tentang Sistem":
     st.write("4.Nilai Tes Setara IPK")
     st.write("5.Nilai Total Keseluruhan")
 
-if pilih_menu == "Klasifikasi Kelulusan":
+    df = pd.read_excel('magister_upload.xlsx')
+    st.write(df)
+
+    bar_chart = px.histogram(df, x="Angkatan", y=None,
+                             color='Angkatan', barmode='group',
+                             height=400)
+    st.plotly_chart(bar_chart)
+
+
+if pilih_menu == "Data Perorangan":
     Bidang_Minat = st.selectbox('Bidang Minat', ("Rakayasa Perangkat Lunak", "Teknologi Media, Game dan Piranti Bergerak",
                                                  "Sistem Cerdas", "Jaringan Berbasis Informasi", "Sistem Informasi"))
     Jenis_TOEFL = st.selectbox(
         'Jenis TOEFL', ("Tidak Ada", "Preparation", "iBT", "ITP"))
-    Nilai__Setara_TOEFL = st.slider('Nilai Setara TOEFL', 40, 102, 65)
+    Nilai__Setara_TOEFL = st.slider('Nilai Setara TOEFL', 40, 105, 65)
     Jenis_TPA = st.selectbox(
         'Jenis TPA', ("Tidak Ada", "Lokal", "OTO Bappenas"))
-    Nilai_TPA = st.slider('Nilai TPA', 8, 113, 50)
+    Nilai_TPA = st.slider('Nilai TPA', 0, 120, 50)
     Akreditasi_Kampus = st.selectbox(
         'Akreditasi Kampus Asal', ("Swasta Biasa", "Swasta Non Unggulan", "Negeri Non Unggulan", "Swasta Unggulan", "Negeri Unggulan"))
-    Nilai_Setara_IPK = st.slider('Nilai Setara IPK', 61, 95, 75)
+    Nilai_Setara_IPK = st.slider('Nilai Setara IPK', 50, 100, 75)
     Jenis_Beasiswa = st.selectbox(
         'Jenis Beasiswa', ("Tidak", "Silver", "Gold", "Diamond"))
     col1, col2 = st.columns(2)
-    Nilai_Total = st.slider('Nilai Total', 43, 85, 60)
+    Nilai_Total = st.slider('Nilai Total', 40, 85, 60)
 
     with col1:
         st.write("Nilai Interview")
@@ -55,17 +98,17 @@ if pilih_menu == "Klasifikasi Kelulusan":
         Komunikasi = st.slider('Komunikasi', 50, 90, 70)
         Problem_Solving = st.slider('Problem Solving', 50, 90, 70)
         Literatur_Review = st.slider('Literatur Review', 50, 90, 70)
-        Team_Work = st.slider('Team Work', 50, 90, 70)
-        Nilai_Total_Interview = st.slider('Nilai Total Interview', 55, 86, 70)
+        Team_Work = st.slider('Team Work', 50, 80, 70)
+        Nilai_Total_Interview = st.slider('Nilai Total Interview', 50, 90, 70)
 
     with col2:
         st.write("Nilai Tes Bidang")
-        Matematika_Komputasi = st.slider('Matematika Komputasi', 0, 60, 30)
-        Jaringan = st.slider('Jaringan', 0, 60, 30)
-        Basis_Data = st.slider('Basis Data', 6, 93, 50)
+        Matematika_Komputasi = st.slider('Matematika Komputasi', 0, 65, 30)
+        Jaringan = st.slider('Jaringan', 0, 65, 30)
+        Basis_Data = st.slider('Basis Data', 0, 95, 50)
         Algoritma_dan_Pemrograman = st.slider(
-            'Algoritma dan Pemrograman', 4, 93, 50)
-        Nilai_Tes_Bidang = st.slider('Nilai Tes Bidang', 16, 70, 45)
+            'Algoritma dan Pemrograman', 0, 95, 50)
+        Nilai_Tes_Bidang = st.slider('Nilai Tes Bidang', 15, 80, 45)
 
         def user_input_features(
                 Bidang_Minat,
