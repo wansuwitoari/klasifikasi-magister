@@ -20,24 +20,26 @@ st.sidebar.image('logo_magister.png')
 pilih_menu = st.sidebar.selectbox(
     "Menu", ("Home", "Klasifikasi Individu", "Klasifikasi Kelompok"))
 
-   if pilih_menu == "Home":
-        st.title("Tentang Aplikasi")
-        st.write("Aplikasi ini dibuat bertujuan untuk melakukan klasifikasi waktu kelulusan mahasiswa Magister Ilmu Komputer Universitas Brawijaya")
-        st.write("Proses klasifikasi dilakukan berdasarkan hasil seleksi masuk calon mahasiswa")
-        st.write("Data hasil seleksi yang akan digunakan mencakup 6 komponen penilaian antara lain : ")
-        st.write("1. Nilai Interview")
-        st.write("2. Nilai Setara TOEFL")
-        st.write("3. Nilai TPA")
-        st.write("4. Nilai Tes Bidang")
-        st.write("5. Nilai Setara IPK")
-        st.write("6. Rekomendasi Beasiswa")
+if pilih_menu == "Home":
+    st.title("Tentang Aplikasi")
+    st.write("Aplikasi ini dibuat bertujuan untuk melakukan klasifikasi waktu kelulusan mahasiswa Magister Ilmu Komputer Universitas Brawijaya")
+    st.write(
+        "Proses klasifikasi dilakukan berdasarkan hasil seleksi masuk calon mahasiswa")
+    st.write(
+        "Data hasil seleksi yang akan digunakan mencakup 6 komponen penilaian antara lain : ")
+    st.write("1. Nilai Interview")
+    st.write("2. Nilai Setara TOEFL")
+    st.write("3. Nilai TPA")
+    st.write("4. Nilai Tes Bidang")
+    st.write("5. Nilai Setara IPK")
+    st.write("6. Rekomendasi Beasiswa")
 
-        st.header("Fitur Aplikasi")
-        st.write("Pada aplikasi ini terdapat 2 fitur yang dapat digunakan untuk melakukan proses klasifikasi yaitu : ")
-        st.write("1. Klasifikasi Perorangan")
-        st.write("2. Klasifikasi Kelompok") 
+    st.header("Fitur Aplikasi")
+    st.write("Pada aplikasi ini terdapat 2 fitur yang dapat digunakan untuk melakukan proses klasifikasi yaitu : ")
+    st.write("1. Klasifikasi Perorangan")
+    st.write("2. Klasifikasi Kelompok")
 
-  if pilih_menu == "Klasifikasi Individu":
+if pilih_menu == "Klasifikasi Individu":
     Bidang_Minat = st.selectbox('Bidang Minat', ("Rakayasa Perangkat Lunak", "Teknologi Media, Game dan Piranti Bergerak",
                                                  "Sistem Cerdas", "Jaringan Berbasis Informasi", "Sistem Informasi"))
     Jenis_TOEFL = st.selectbox(
@@ -220,7 +222,7 @@ pilih_menu = st.sidebar.selectbox(
         st.write(prediksi_proba[0][0]*100)
         st.write("Probabilitas tidak lulus tepat waktu")
         st.write(prediksi_proba[0][1]*100)
-   
+
     if pilih_menu == "Klasifikasi Kelompok":
         st.header("Klasifikasi Kelompok")
         st.write("Download template file excel pada link ini")
@@ -251,4 +253,3 @@ pilih_menu = st.sidebar.selectbox(
         # DASHBOARD
         else:
             st.write("Masukkan file excel yang ingin dimasukkan")
-
