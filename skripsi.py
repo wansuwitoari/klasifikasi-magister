@@ -18,61 +18,26 @@ st.sidebar.image('logo_magister.png')
 
 
 pilih_menu = st.sidebar.selectbox(
-    "Menu", ("Tentang Sistem", "Data Perorangan", "Data Kelompok"))
+    "Menu", ("Home", "Klasifikasi Individu", "Klasifikasi Kelompok"))
 
-if pilih_menu == "Data Kelompok":
-    st.header("Klasifikasi Kelompok")
-    st.write("Download template file excel pada link ini")
-    st.write("")
-    upload_file = st.file_uploader("Upload file disini", type=["xlsx"])
-    if upload_file is not None:
-        df = pd.read_excel(upload_file)
-        st.write(df)
-        input_kelompok = df.drop(['Nama_Lengkap', 'Angkatan'], axis=1)
-        nama = df[['Nama_Lengkap', 'Angkatan']]
-        load_model = pickle.load(open('modelnb.pkl', 'rb'))
-        prediksi = load_model.predict(input_kelompok)
-        prediksi_proba = load_model.predict_proba(input_kelompok)
+if pilih_menu == "Home":
+    st.title("Tentang Aplikasi")
+    st.write("Aplikasi ini dibuat bertujuan untuk melakukan klasifikasi waktu kelulusan mahasiswa Magister Ilmu Komputer Universitas Brawijaya")
+    st.write("Proses klasifikasi dilakukan berdasarkan hasil seleksi masuk calon mahasiswa")
+    st.write("Data hasil seleksi yang akan digunakan mencakup 6 komponen penilaian antara lain : ")
+    st.write("1. Nilai Interview")
+    st.write("2. Nilai Setara TOEFL")
+    st.write("3. Nilai TPA")
+    st.write("4. Nilai Tes Bidang")
+    st.write("5. Nilai Setara IPK")
+    st.write("6. Rekomendasi Beasiswa")
+    
+    st.header("Fitur Aplikasi")
+    st.write("Pada aplikasi ini terdapat 2 fitur yang dapat digunakan untuk melakukan proses klasifikasi yaitu : ")
+    st.write("1. Klasifikasi Perorangan")
+    st.write("2. Klasifikasi Kelompok") 
 
-        st.subheader('Hasil Klasifikasi')
-        Kategori_Lulus = np.array(
-            ['Lulus Tepat Waktu', 'Tidak Lulus Tepat Waktu'])
-        label = (Kategori_Lulus[prediksi])
-        klasifikasi = pd.DataFrame(label, columns=['Kategori_Lulus'])
-        kelompok = pd.concat([nama, klasifikasi], axis=1)
-        st.write(kelompok)
-
-        bar_chart2 = px.histogram(kelompok, x='Kategori_Lulus', y=None,
-                                  color='Angkatan', barmode='group',
-                                  height=400)
-        st.plotly_chart(bar_chart2)
-
-    # DASHBOARD
-    else:
-        st.write("Masukkan file excel yang ingin dimasukkan")
-
-
-if pilih_menu == "Tentang Sistem":
-    st.header("Tentang Sistem")
-    st.write("Sistem klasifikasi merupakan sistem yang dibuat bertujuan untuk melakukan klasifikasi kelulusan mahasiswa Magister Ilmu Komputer dengan menggunakan nilai hasil seleksi masuk calon mahasiswa")
-    st.write("Untuk dapat menggunakan sistem user harus menginput nilai dari setiap komponen penilaian sesuai dengan hasil seleksi yang telah dilakukan")
-    st.write("Komponen penilaian yang digunakan dalam antara lain :")
-    st.write("1.Nilai Tes Interview")
-    st.write("2.Nilai Tes TOEFL ")
-    st.write("3.Nilai Tes TPA")
-    st.write("4.Nilai Tes Setara IPK")
-    st.write("5.Nilai Total Keseluruhan")
-
-    df = pd.read_excel('magister_upload.xlsx')
-    st.write(df)
-
-    bar_chart = px.histogram(df, x="Angkatan", y=None,
-                             color='Angkatan', barmode='group',
-                             height=400)
-    st.plotly_chart(bar_chart)
-
-
-if pilih_menu == "Data Perorangan":
+  if pilih_menu == "Klasifikasi Individu":
     Bidang_Minat = st.selectbox('Bidang Minat', ("Rakayasa Perangkat Lunak", "Teknologi Media, Game dan Piranti Bergerak",
                                                  "Sistem Cerdas", "Jaringan Berbasis Informasi", "Sistem Informasi"))
     Jenis_TOEFL = st.selectbox(
@@ -255,3 +220,35 @@ if pilih_menu == "Data Perorangan":
         st.write(prediksi_proba[0][0]*100)
         st.write("Probabilitas tidak lulus tepat waktu")
         st.write(prediksi_proba[0][1]*100)
+   
+    if pilih_menu == "Klasifikasi Kelompok":
+        st.header("Klasifikasi Kelompok")
+        st.write("Download template file excel pada link ini")
+        st.write("")
+        upload_file = st.file_uploader("Upload file disini", type=["xlsx"])
+        if upload_file is not None:
+            df = pd.read_excel(upload_file)
+            st.write(df)
+            input_kelompok = df.drop(['Nama_Lengkap', 'Angkatan'], axis=1)
+            nama = df[['Nama_Lengkap', 'Angkatan']]
+            load_model = pickle.load(open('modelnb.pkl', 'rb'))
+            prediksi = load_model.predict(input_kelompok)
+            prediksi_proba = load_model.predict_proba(input_kelompok)
+
+            st.subheader('Hasil Klasifikasi')
+            Kategori_Lulus = np.array(
+                ['Lulus Tepat Waktu', 'Tidak Lulus Tepat Waktu'])
+            label = (Kategori_Lulus[prediksi])
+            klasifikasi = pd.DataFrame(label, columns=['Kategori_Lulus'])
+            kelompok = pd.concat([nama, klasifikasi], axis=1)
+            st.write(kelompok)
+
+            bar_chart2 = px.histogram(kelompok, x='Kategori_Lulus', y=None,
+                                      color='Angkatan', barmode='group',
+                                      height=400)
+            st.plotly_chart(bar_chart2)
+
+        # DASHBOARD
+        else:
+            st.write("Masukkan file excel yang ingin dimasukkan")
+
