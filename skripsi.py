@@ -223,33 +223,32 @@ if pilih_menu == "Klasifikasi Individu":
         st.write("Probabilitas tidak lulus tepat waktu")
         st.write(prediksi_proba[0][1]*100)
 
-    if pilih_menu == "Klasifikasi Kelompok":
-        st.header("Klasifikasi Kelompok")
-        st.write("Download template file excel pada link ini")
-        st.write("")
-        upload_file = st.file_uploader("Upload file disini", type=["xlsx"])
-        if upload_file is not None:
-            df = pd.read_excel(upload_file)
-            st.write(df)
-            input_kelompok = df.drop(['Nama_Lengkap', 'Angkatan'], axis=1)
-            nama = df[['Nama_Lengkap', 'Angkatan']]
-            load_model = pickle.load(open('modelnb.pkl', 'rb'))
-            prediksi = load_model.predict(input_kelompok)
-            prediksi_proba = load_model.predict_proba(input_kelompok)
+if pilih_menu == "Klasifikasi Kelompok":
+    st.header("Klasifikasi Kelompok")
+    st.write("Download template file excel pada link ini")
+    st.write("")
+    upload_file = st.file_uploader("Upload file disini", type=["xlsx"])
+    if upload_file is not None:
+        df = pd.read_excel(upload_file)
+        st.write(df)
+        input_kelompok = df.drop(['Nama_Lengkap', 'Angkatan'], axis=1)
+        nama = df[['Nama_Lengkap', 'Angkatan']]
+        load_model = pickle.load(open('modelnb.pkl', 'rb'))
+        prediksi = load_model.predict(input_kelompok)
+        prediksi_proba = load_model.predict_proba(input_kelompok)
 
-            st.subheader('Hasil Klasifikasi')
-            Kategori_Lulus = np.array(
-                ['Lulus Tepat Waktu', 'Tidak Lulus Tepat Waktu'])
-            label = (Kategori_Lulus[prediksi])
-            klasifikasi = pd.DataFrame(label, columns=['Kategori_Lulus'])
-            kelompok = pd.concat([nama, klasifikasi], axis=1)
-            st.write(kelompok)
+        st.subheader('Hasil Klasifikasi')
+        Kategori_Lulus = np.array(
+            ['Lulus Tepat Waktu', 'Tidak Lulus Tepat Waktu'])
+        label = (Kategori_Lulus[prediksi])
+        klasifikasi = pd.DataFrame(label, columns=['Kategori_Lulus'])
+        kelompok = pd.concat([nama, klasifikasi], axis=1)
+        st.write(kelompok)
 
-            bar_chart2 = px.histogram(kelompok, x='Kategori_Lulus', y=None,
-                                      color='Angkatan', barmode='group',
-                                      height=400)
-            st.plotly_chart(bar_chart2)
+        bar_chart2 = px.histogram(kelompok, x='Kategori_Lulus', y=None,
+                                  color='Angkatan', barmode='group',
+                                  height=400)
+        st.plotly_chart(bar_chart2)
 
-        # DASHBOARD
-        else:
-            st.write("Masukkan file excel yang ingin dimasukkan")
+    else:
+        st.write("Masukkan file excel yang ingin dimasukkan")
