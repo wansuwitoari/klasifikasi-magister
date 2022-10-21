@@ -20,22 +20,22 @@ st.sidebar.image('logo_magister.png')
 pilih_menu = st.sidebar.selectbox(
     "Menu", ("Home", "Klasifikasi Individu", "Klasifikasi Kelompok"))
 
-if pilih_menu == "Home":
-    st.title("Tentang Aplikasi")
-    st.write("Aplikasi ini dibuat bertujuan untuk melakukan klasifikasi waktu kelulusan mahasiswa Magister Ilmu Komputer Universitas Brawijaya")
-    st.write("Proses klasifikasi dilakukan berdasarkan hasil seleksi masuk calon mahasiswa")
-    st.write("Data hasil seleksi yang akan digunakan mencakup 6 komponen penilaian antara lain : ")
-    st.write("1. Nilai Interview")
-    st.write("2. Nilai Setara TOEFL")
-    st.write("3. Nilai TPA")
-    st.write("4. Nilai Tes Bidang")
-    st.write("5. Nilai Setara IPK")
-    st.write("6. Rekomendasi Beasiswa")
-    
-    st.header("Fitur Aplikasi")
-    st.write("Pada aplikasi ini terdapat 2 fitur yang dapat digunakan untuk melakukan proses klasifikasi yaitu : ")
-    st.write("1. Klasifikasi Perorangan")
-    st.write("2. Klasifikasi Kelompok") 
+   if pilih_menu == "Home":
+        st.title("Tentang Aplikasi")
+        st.write("Aplikasi ini dibuat bertujuan untuk melakukan klasifikasi waktu kelulusan mahasiswa Magister Ilmu Komputer Universitas Brawijaya")
+        st.write("Proses klasifikasi dilakukan berdasarkan hasil seleksi masuk calon mahasiswa")
+        st.write("Data hasil seleksi yang akan digunakan mencakup 6 komponen penilaian antara lain : ")
+        st.write("1. Nilai Interview")
+        st.write("2. Nilai Setara TOEFL")
+        st.write("3. Nilai TPA")
+        st.write("4. Nilai Tes Bidang")
+        st.write("5. Nilai Setara IPK")
+        st.write("6. Rekomendasi Beasiswa")
+
+        st.header("Fitur Aplikasi")
+        st.write("Pada aplikasi ini terdapat 2 fitur yang dapat digunakan untuk melakukan proses klasifikasi yaitu : ")
+        st.write("1. Klasifikasi Perorangan")
+        st.write("2. Klasifikasi Kelompok") 
 
   if pilih_menu == "Klasifikasi Individu":
     Bidang_Minat = st.selectbox('Bidang Minat', ("Rakayasa Perangkat Lunak", "Teknologi Media, Game dan Piranti Bergerak",
