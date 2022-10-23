@@ -1,0 +1,35 @@
+- Pastikan penggunaan koma (,) diganti dengan titik(.)
+- Convert data yang masih menggunakan string ke dalam data numerik
+
+Nilai atribut harus disesuaikan dengan aturan yang ada dibawah ini :
+1. Akreditasi
+	- Swasta Biasa = 1
+	- Swasta Non Unggulan = 2
+	- Negeri Non Unggulan = 3
+	- Swasta Unggulan = 4
+	- Negeri Unggulan = 5
+2. Beasiswa
+	- Tidak = 1
+	- Silver = 2
+	- Gold = 3
+	- Diamond = 4
+3. Bidang Riset
+	- Rakayasa Perangkat Lunak = 1
+	- Teknologi Media, Game dan Piranti Bergerak = 2
+	- Sistem Cerdas = 3
+	- Jaringan Berbasis Informasi = 4
+	- Sistem Informasi = 5
+4. Jenis TPA
+	- Tidak Ada = 1
+	- Lokal = 2
+	- OTO Bappenas = 3
+5. Jenis TOEFL
+	- Tidak Ada = 1
+	- Preparation = 2
+	- iBT = 3
+	- ITP = 4
+	
+
+
+
+   

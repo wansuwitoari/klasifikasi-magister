@@ -4,7 +4,6 @@ import pandas as pd
 import pickle
 import plotly.express as px
 
-
 from sklearn.naive_bayes import GaussianNB
 
 
@@ -16,12 +15,11 @@ Magister Ilmu Komputer Universitas Brawijaya
 
 st.sidebar.image('logo_magister.png')
 
-
 pilih_menu = st.sidebar.selectbox(
     "Menu", ("Home", "Klasifikasi Individu", "Klasifikasi Kelompok"))
 
 if pilih_menu == "Home":
-    st.title("Tentang Aplikasi")
+    st.header("Tentang Aplikasi")
     st.write("Aplikasi ini dibuat bertujuan untuk melakukan klasifikasi waktu kelulusan mahasiswa Magister Ilmu Komputer Universitas Brawijaya")
     st.write(
         "Proses klasifikasi dilakukan berdasarkan hasil seleksi masuk calon mahasiswa")
@@ -225,9 +223,13 @@ if pilih_menu == "Klasifikasi Individu":
 
 if pilih_menu == "Klasifikasi Kelompok":
     st.header("Klasifikasi Kelompok")
-    st.write("Download template file excel pada link ini")
-    st.write("")
-    upload_file = st.file_uploader("Upload file disini", type=["xlsx"])
+    st.write("Menu ini berfungsi untuk melakukan klasifkasi data kelompok mahasiswa")
+    st.write("Download file dibawah yang berisi template excel dan panduan pengisian")
+    st.write(
+        "Template dan Panduan Pengisian File -> [Download](https://drive.google.com/drive/folders/1lwhjMLOdy0YWe92FuiwJOZqTYBGndxcc?usp=sharing)")
+
+    upload_file = st.file_uploader(
+        "Pastikan file yang akan diupload telah sesuai dengan template file yang dibutuhkan!!!", type=["xlsx"])
     if upload_file is not None:
         df = pd.read_excel(upload_file)
         st.write(df)
@@ -245,10 +247,19 @@ if pilih_menu == "Klasifikasi Kelompok":
         kelompok = pd.concat([nama, klasifikasi], axis=1)
         st.write(kelompok)
 
+        def convert_df(df):
+            return df.to_csv().encode('utf-8')
+
+        csv = convert_df(kelompok)
+
+        st.download_button(
+            label="Downoad Data Hasil Klasifikasi",
+            data=csv,
+            file_name='Hasil Klasifikasi Mahasiswa Magister.csv',
+            mime='text/csv',
+        )
+
         bar_chart2 = px.histogram(kelompok, x='Kategori_Lulus', y=None,
                                   color='Angkatan', barmode='group',
                                   height=400)
         st.plotly_chart(bar_chart2)
-
-    else:
-        st.write("Masukkan file excel yang ingin dimasukkan")
