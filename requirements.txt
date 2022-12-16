@@ -5,3 +5,7 @@ scikit-learn
 plotly
 openpyxl
 pyxlsb
+SMOTE
+ADASYN
+BorderlineSMOTE
+imblearn
