@@ -7,4 +7,4 @@ openpyxl
 pyxlsb
 imblearn
 pyperclip
-libgtk-3-dev
+io
