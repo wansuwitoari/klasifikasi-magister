@@ -1,11 +1,8 @@
-numpy
 streamlit
+numpy
 pandas
 scikit-learn
 plotly
 openpyxl
 pyxlsb
 imblearn
-pyperclip
-xclip
-xsel
