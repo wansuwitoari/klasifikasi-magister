@@ -1,3 +1,4 @@
+streamlit
 numpy
 pandas
 scikit-learn
@@ -5,6 +6,3 @@ plotly
 openpyxl
 pyxlsb
 imblearn
-pyperclip
-xclip
-streamlit==0.75.0
