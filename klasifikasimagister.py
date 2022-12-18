@@ -284,17 +284,17 @@ elif option == 'Klasifikasi Individu':
         st.write("6 Semester : ", round(proba[0][3], 2))
 
 elif option == 'Klasifikasi Kelompok':
+    st.header("Klasifikasi Kelompok")
+    st.write("Menu ini berfungsi untuk melakukan klasifkasi data kelompok mahasiswa")
+    st.write("Download file dibawah yang berisi template excel dan panduan pengisian")
     st.write(
-        """## Prediksi Berkelompok Mahasiswa""")  # menampilkan judul halaman dataframe
-    st.write("Menu ini digunakan untuk melakukan prediksi kelompok kepada mahasiswa")
-    st.write("Silakan mengunjungi https://docs.google.com/spreadsheets/d/1c0F-nXVwz97710KH9K5e2DU4TyzZNvZ3neLDU2-plTg/edit?usp=sharing")
-    st.write("Lakukan copy data Google Sheet kemudian klik tombol di bawah ini")
-    st.write("**NOTE:** Rubah data yang mengandung koma (,) dengan titik (.).")
-    st.write("Misalnya 80,5 menjadi 80.5")
-    if st.button('Paste Data'):
-        df = pd.read_clipboard()
+        "Template dan Panduan Pengisian File -> [Download](https://drive.google.com/drive/folders/1lwhjMLOdy0YWe92FuiwJOZqTYBGndxcc?usp=sharing)")
+    upload_file = st.file_uploader(
+        "Pastikan file yang akan diupload telah sesuai dengan template file yang dibutuhkan!!!", type=["xlsx"])
+    if upload_file is not None:
+        df = pd.read_excel(upload_file)
         df1 = pd.DataFrame(df)
-        df1.rename(columns={'1': "No", '2': "No. Pendaftaran", '3': 'Nama Lengkap', '4': 'Asal PT',
+        df1.rename(columns={'1a': "No", '2a': "No. Pendaftaran", '3a': 'Nama Lengkap', '4': 'Asal PT',
                             '5a': 'Mayor', '5b': 'Minor', '5c': 'Evaluator',
                             '5d': 'Verifikator', '6': 'Motivasi Studi',
                             '7': 'Motivasi Beasiswa', '8': 'Pengalaman Penelitian',
