@@ -9,3 +9,4 @@ imblearn
 pyperclip
 xclip
 xsel
+streamlit==0.75.0
