@@ -293,7 +293,36 @@ elif option == 'Klasifikasi Kelompok':
         "Pastikan file yang akan diupload telah sesuai dengan template file yang dibutuhkan!!!", type=["xlsx"])
     if upload_file is not None:
         df = pd.read_excel(upload_file)
-        df1 = pd.DataFrame(df)
+        df0 = pd.DataFrame(df)
+        st.write(df0)
+        df1 = df.drop(['No', 'No. Pendaftaran', 'Nama Lengkap', 'Asal PT', 'Minor', 'Evaluator', 'Verifikator', 'Bobot TOEFL', 'Skor TOEFL', 'Nilai TOEFL', 'Reading', 'Speaking', 'Writing',
+                       'Wawancara B. Ing', 'Jenis TPA', 'Bobot TPA', 'Skor TPA', 'Bobot', 'IPK', 'Tot Verbal', 'Tot Numeric', 'Tot Fig-Spa', 'Tot IQ', 'Klas', 'Nilai Psikotes', 'Nilai Total + Psikotes'], axis=1)
+        nama = df['Nama Lengkap']
+        df1.replace(
+            to_replace="Teknologi Media Game dan Piranti Bergerak", value="1", inplace=True)
+        df1.replace(to_replace="Jaringan Berbasis Informasi",
+                    value="2", inplace=True)
+        df1.replace(to_replace="Rakayasa Perangkat Lunak",
+                    value="3", inplace=True)
+        df1.replace(to_replace="Sistem Cerdas / Computer vision",
+                    value="4", inplace=True)
+        df1.replace(to_replace="Sistem Informasi", value="5", inplace=True)
+
+        df1.replace(to_replace="Tidak ada", value="1", inplace=True)
+        df1.replace(to_replace="Preparation", value="2", inplace=True)
+        df1.replace(to_replace="iBT", value="3", inplace=True)
+        df1.replace(to_replace="ITP", value="4", inplace=True)
+
+        df1.replace(to_replace="Tidak ada", value="1", inplace=True)
+        df1.replace(to_replace="Lokal", value="2", inplace=True)
+        df1.replace(to_replace="OTO Bappenas", value="3", inplace=True)
+
+        df1.replace(to_replace="C / Baik", value="1", inplace=True)
+        df1.replace(to_replace="B / Baik Sekali", value="2", inplace=True)
+        df1.replace(to_replace="A / Unggul", value="3", inplace=True)
+        st.subheader("Data Mahasiswa")
+        st.write(df1)
+
         df1.replace(
             to_replace="Teknologi Media Game dan Piranti Bergerak", value="1", inplace=True)
         df1.replace(to_replace="Jaringan Berbasis Informasi",
@@ -342,7 +371,7 @@ elif option == 'Klasifikasi Kelompok':
         df_prediksi.loc[df_prediksi['Lama_Kuliah']
                         == 7, 'Kelulusan'] = 'Tidak Tepat Waktu'
         row_prediksi = pd.concat(
-            [df1[['Nama Lengkap']], df_prediksi], axis=1)
+            [nama, df_prediksi], axis=1)
         st.subheader("Hasil Prediksi Mahasiswa")
         st.write(row_prediksi)
         st.text('')
