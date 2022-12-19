@@ -295,7 +295,7 @@ elif option == 'Klasifikasi Kelompok':
         df = pd.read_excel(upload_file)
         df0 = pd.DataFrame(df)
         st.write(df0)
-        df1 = df.drop(['No', 'No. Pendaftaran', 'Nama Lengkap', 'Asal PT', 'Minor', 'Evaluator', 'Verifikator', 'Bobot TOEFL', 'Skor TOEFL', 'Nilai TOEFL', 'Reading', 'Speaking', 'Writing',
+        df1 = df.drop(['No', 'No. Pendaftaran', 'Nama Lengkap', 'Asal PT', 'Minor', 'Evaluator', 'Verifikator', 'Motivasi_Beasiswa', 'Bobot TOEFL', 'Skor TOEFL', 'Nilai TOEFL', 'Reading', 'Speaking', 'Writing',
                        'Wawancara B. Ing', 'Jenis TPA', 'Bobot TPA', 'Skor TPA', 'Bobot', 'IPK', 'Tot Verbal', 'Tot Numeric', 'Tot Fig-Spa', 'Tot IQ', 'Klas', 'Nilai Psikotes', 'Nilai Total + Psikotes'], axis=1)
         nama = df['Nama Lengkap']
         df1.replace(
