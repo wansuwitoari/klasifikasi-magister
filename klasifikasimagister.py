@@ -294,23 +294,6 @@ elif option == 'Klasifikasi Kelompok':
     if upload_file is not None:
         df = pd.read_excel(upload_file)
         df1 = pd.DataFrame(df)
-        df1.rename(columns={'1a': "No", '2a': "No. Pendaftaran", '3a': 'Nama Lengkap', '4': 'Asal PT',
-                            '5a': 'Mayor', '5b': 'Minor', '5c': 'Evaluator',
-                            '5d': 'Verifikator', '6': 'Motivasi Studi',
-                            '7': 'Motivasi Beasiswa', '8': 'Pengalaman Penelitian',
-                            '9': 'Rencana Riset', '10': 'Komunikasi', '11': 'Problem Solving',
-                            '12': 'Literature Review', '13': 'Team Work', '14': 'Nilai Interview',
-                            '15': 'Jenis TOEFL', '16': 'Bobot TOEFL', '17': 'Skor TOEFL',
-                            '18': 'Nilai TOEFL', '19': 'Reading', '20': 'Speaking',
-                            '21': 'Writing', '22': 'Wawancara B. Ing', '23': 'Nilai Setara TOEFL',
-                            '24': 'Jenis TPA', '25': 'Bobot TPA', '26': 'Skor TPA',
-                            '27': 'Nilai TPA', '28': 'AP', '29': 'MK', '30': 'JK',
-                            '31': 'BD', '32': 'Nilai Tes Bidang', '33': 'Status PT',
-                            '34': 'Bobot', '35': 'IPK', '36': 'Nilai Setara IPK',
-                            '37': 'Tot Verbal', '38': 'Tot Numeric', '39': 'Tot Fig-Spa',
-                            '40': 'Tot IQ', '41': 'Klas', '42': 'Nilai Psikotes',
-                            '43': 'Nilai Total', '44': 'Nilai Total + Psikotes'}, inplace=True)
-
         df1.replace(
             to_replace="Teknologi Media Game dan Piranti Bergerak", value="1", inplace=True)
         df1.replace(to_replace="Jaringan Berbasis Informasi",
