@@ -51,6 +51,8 @@ model = RandomForestClassifier(bootstrap=True,
                                min_samples_leaf=2,
                                min_samples_split=5,
                                n_estimators=162)
+X_train = X_train.as_matrix()
+y_train = y_train.as_matrix()
 model.fit(X_train, y_train)
 
 
