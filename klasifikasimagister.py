@@ -319,12 +319,12 @@ elif option == 'Klasifikasi Kelompok':
         st.subheader("Data Mahasiswa")
         st.write(df1)
 
-        data = df1[['Mayor', 'MK', 'JK', 'BD', 'AP', 'Nilai Tes Bidang',
-                   'Nilai Setara IPK', 'Status PT', 'Motivasi Studi',
+        data = df1[['Mayor', 'Motivasi Studi',
                     'Pengalaman Penelitian', 'Rencana Riset', 'Komunikasi',
                     'Problem Solving', 'Literature Review', 'Team Work',
                     'Nilai Interview', 'Jenis TOEFL', 'Nilai Setara TOEFL',
-                    'Nilai TPA', 'Nilai Total']]
+                    'Nilai TPA', 'AP', 'MK', 'JK', 'BD', 'Nilai Tes Bidang',
+                    'Status PT', 'Nilai Setara IPK', 'Nilai Total']]
 
         # build the scaler model
         data = pd.DataFrame(MinMaxScaler().fit_transform(data),
