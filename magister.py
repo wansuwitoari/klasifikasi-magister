@@ -352,7 +352,7 @@ elif option == 'Klasifikasi Kelompok':
                     'Nilai_Setara_IPK', 'Status_PT', 'Motivasi_Studi', 'Motivasi_Beasiswa',
                     'Pengalaman_Penelitian', 'Rencana_Riset', 'Komunikasi',
                     'Problem_Solving', 'Literature_Review', 'Team_Work',
-                    'Nilai_Akhir_Interview', 'Jenis_TOEFL', 'Nilai_Setara_TOEFL', 'Jenis TPA',
+                    'Nilai_Akhir_Interview', 'Jenis_TOEFL', 'Nilai_Setara_TOEFL', 'Jenis_TPA',
                     'Nilai_TPA', 'Nilai_Total']]
 
         # build the scaler model
