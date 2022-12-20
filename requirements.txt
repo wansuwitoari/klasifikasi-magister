@@ -6,4 +6,4 @@ plotly
 openpyxl
 pyxlsb
 imblearn
-xlswriter
+xlsxwriter
