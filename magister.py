@@ -40,7 +40,7 @@ X = pd.DataFrame(MinMaxScaler().fit_transform(X),
                  columns=X.columns, index=X.index)
 X_resampled, y_resampled = SMOTE().fit_resample(X, y)
 X_resampled = X_resampled.drop(
-    ['Jenis_TPA', 'Jenis_Beasiswa', 'Motivasi_Beasiswa'], axis=1)
+    ['Jenis_Beasiswa'], axis=1)
 
 X_train, X_test, y_train, y_test = train_test_split(
     X_resampled, y_resampled, test_size=0.2)
@@ -295,8 +295,8 @@ elif option == 'Klasifikasi Kelompok':
         df = pd.read_excel(upload_file)
         df0 = pd.DataFrame(df)
         st.write(df0)
-        df1 = df.drop(['No', 'No. Pendaftaran', 'Nama Lengkap', 'Asal PT', 'Minor', 'Evaluator', 'Verifikator', 'Motivasi_Beasiswa', 'Bobot TOEFL', 'Skor TOEFL', 'Nilai TOEFL', 'Reading', 'Speaking', 'Writing',
-                       'Wawancara B. Ing', 'Jenis TPA', 'Bobot TPA', 'Skor TPA', 'Bobot', 'IPK', 'Tot Verbal', 'Tot Numeric', 'Tot Fig-Spa', 'Tot IQ', 'Klas', 'Nilai Psikotes', 'Nilai Total + Psikotes'], axis=1)
+        df1 = df.drop(['No', 'No. Pendaftaran', 'Nama Lengkap', 'Asal PT', 'Minor', 'Evaluator', 'Verifikator', 'Bobot TOEFL', 'Skor TOEFL', 'Nilai TOEFL', 'Reading', 'Speaking', 'Writing',
+                       'Wawancara B. Ing', 'Bobot TPA', 'Skor TPA', 'Bobot', 'IPK', 'Tot Verbal', 'Tot Numeric', 'Tot Fig-Spa', 'Tot IQ', 'Klas', 'Nilai Psikotes', 'Nilai Total + Psikotes'], axis=1)
         nama = df['Nama Lengkap']
         df1.replace(
             to_replace="Teknologi Media Game dan Piranti Bergerak", value="1", inplace=True)
@@ -348,12 +348,12 @@ elif option == 'Klasifikasi Kelompok':
         st.subheader("Data Mahasiswa")
         st.write(df1)
 
-        data = df1[['Mayor', 'Motivasi_Studi',
+        data = df1[['Mayor', 'Matematika_Komputasi', 'Jaringan_Komputer', 'Basis_Data', 'Algoritma_dan_Pemrograman', 'Nilai_Akhir_Tes_Bidang',
+                    'Nilai_Setara_IPK', 'Status_PT', 'Motivasi_Studi', 'Motivasi_Beasiswa',
                     'Pengalaman_Penelitian', 'Rencana_Riset', 'Komunikasi',
                     'Problem_Solving', 'Literature_Review', 'Team_Work',
-                    'Nilai_Akhir_Interview', 'Jenis_TOEFL', 'Nilai_Setara_TOEFL',
-                    'Nilai_TPA', 'Algoritma_dan_Pemrograman', 'Matematika_Komputasi', 'Jaringan_Komputer', 'Basis_Data', 'Nilai_Akhir_Tes_Bidang',
-                    'Status_PT', 'Nilai_Setara_IPK', 'Nilai_Total']]
+                    'Nilai_Akhir_Interview', 'Jenis_TOEFL', 'Nilai_Setara_TOEFL', 'Jenis TPA',
+                    'Nilai_TPA', 'Nilai_Total']]
 
         # build the scaler model
         data = pd.DataFrame(MinMaxScaler().fit_transform(data),
