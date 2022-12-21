@@ -297,9 +297,9 @@ elif option == 'Klasifikasi Individu':
         proba = (model2.predict_proba(np.delete(ok, (0, 1), axis=0)))
         st.write("Klasifikasi Kelulusan Mahasiswa : ", prediksi_tunggal[0])
         if prediksi_tunggal[0] <= 4:
-            st.write("Lulus Tepat Waktu")
+            st.header("Lulus Tepat Waktu")
         else:
-            st.write("Tidak Lulus Tepat Waktu")
+            st.header("Tidak Lulus Tepat Waktu")
         st.write("Detail Probabilitas kelulusan")
         st.write("3 Semester : ", round(proba[0][0], 2))
         st.write("4 Semester : ", round(proba[0][1], 2))
@@ -309,14 +309,17 @@ elif option == 'Klasifikasi Individu':
 elif option == 'Klasifikasi Kelompok':
     st.header("Klasifikasi Kelompok")
     st.write("Menu ini berfungsi untuk melakukan klasifkasi data kelompok mahasiswa")
-    st.write("Download file dibawah yang berisi template excel dan panduan pengisian")
     st.write(
-        "Template dan Panduan Pengisian File -> [Download](https://drive.google.com/drive/folders/1lwhjMLOdy0YWe92FuiwJOZqTYBGndxcc?usp=sharing)")
+        "Download file dibawah yang berisi template excel untuk dilakukan pengisian data")
+    st.write("Pastikan mengganti tanda koma(,) dengan titik(.) sebelum file dimasukkan ke dalam kolom upload)
+    st.write(
+        "Template FIle Excel  -> [Download](https://drive.google.com/drive/folders/1lwhjMLOdy0YWe92FuiwJOZqTYBGndxcc?usp=sharing)")
     upload_file = st.file_uploader(
         "Pastikan file yang akan diupload telah sesuai dengan template file yang dibutuhkan!!!", type=["xlsx"])
     if upload_file is not None:
         df = pd.read_excel(upload_file)
         df0 = pd.DataFrame(df)
+        st.subheader("Data Mahasiswa")
         st.write(df0)
         df1 = df.drop(['No', 'No. Pendaftaran', 'Nama Lengkap', 'Angkatan', 'Asal PT', 'Minor', 'Evaluator', 'Verifikator', 'Bobot TOEFL', 'Skor TOEFL', 'Nilai TOEFL', 'Reading', 'Speaking', 'Writing',
                        'Wawancara B. Ing', 'Bobot TPA', 'Skor TPA', 'Bobot', 'IPK', 'Tot Verbal', 'Tot Numeric', 'Tot Fig-Spa', 'Tot IQ', 'Klas', 'Nilai Psikotes', 'Nilai Total + Psikotes'], axis=1)
@@ -343,8 +346,6 @@ elif option == 'Klasifikasi Kelompok':
         df1.replace(to_replace="C / Baik", value="1", inplace=True)
         df1.replace(to_replace="B / Baik Sekali", value="2", inplace=True)
         df1.replace(to_replace="A / Unggul", value="3", inplace=True)
-        st.subheader("Data Mahasiswa")
-        st.write(df1)
 
         data = df1[['Mayor', 'Matematika_Komputasi', 'Jaringan_Komputer', 'Basis_Data', 'Algoritma_dan_Pemrograman', 'Nilai_Akhir_Tes_Bidang',
                     'Nilai_Setara_IPK', 'Status_PT', 'Motivasi_Studi', 'Motivasi_Beasiswa',
