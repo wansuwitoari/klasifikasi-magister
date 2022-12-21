@@ -311,7 +311,7 @@ elif option == 'Klasifikasi Kelompok':
     st.write("Menu ini berfungsi untuk melakukan klasifkasi data kelompok mahasiswa")
     st.write(
         "Download file dibawah yang berisi template excel untuk dilakukan pengisian data")
-    st.write("Pastikan mengganti tanda koma(,) dengan titik(.) sebelum file dimasukkan ke dalam kolom upload)
+    st.write("Pastikan mengganti tanda koma(,) dengan titik(.) sebelum file dimasukkan ke dalam kolom upload")
     st.write(
         "Template FIle Excel  -> [Download](https://drive.google.com/drive/folders/1lwhjMLOdy0YWe92FuiwJOZqTYBGndxcc?usp=sharing)")
     upload_file = st.file_uploader(
