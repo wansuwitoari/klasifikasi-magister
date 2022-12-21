@@ -53,6 +53,25 @@ model = RandomForestClassifier(bootstrap=True,
                                n_estimators=162)
 model.fit(X_train, y_train)
 
+# build the scaler model
+X2 = data.drop('Lama_Kuliah', axis=1)
+X2 = pd.DataFrame(MinMaxScaler().fit_transform(X2),
+                  columns=X2.columns, index=X2.index)
+X2_resampled, y_resampled = SMOTE().fit_resample(X2, y)
+X2_resampled = X2_resampled.drop(
+    ['Motivasi_Studi', 'Jenis_TPA', 'Jenis_Beasiswa'], axis=1)
+
+X2_train, X2_test, y_train, y_test = train_test_split(
+    X2_resampled, y_resampled, test_size=0.2)
+# fit the model
+model2 = RandomForestClassifier(bootstrap=True,
+                                max_depth=None,
+                                max_features=2,
+                                min_samples_leaf=2,
+                                min_samples_split=5,
+                                n_estimators=162)
+model2.fit(X2_train, y_train)
+
 
 st.sidebar.image("logo_magister.png", use_column_width=True)
 option = st.sidebar.selectbox(
@@ -274,9 +293,13 @@ elif option == 'Klasifikasi Individu':
         combine = (np.vstack([dataBatas, data]))
         scaler = MinMaxScaler().fit(combine)
         ok = scaler.transform(combine)
-        prediksi_tunggal = (model.predict(np.delete(ok, (0, 1), axis=0)))
-        proba = (model.predict_proba(np.delete(ok, (0, 1), axis=0)))
-        st.write("Prediksi masa studi mahasiswa : ", prediksi_tunggal[0])
+        prediksi_tunggal = (model2.predict(np.delete(ok, (0, 1), axis=0)))
+        proba = (model2.predict_proba(np.delete(ok, (0, 1), axis=0)))
+        st.write("Klasifikasi Kelulusan Mahasiswa : ", prediksi_tunggal[0])
+        if prediksi_tunggal[0] <= 4:
+            st.write("Lulus Tepat Waktu")
+        else:
+            st.write("Tidak Lulus Tepat Waktu")
         st.write("Detail Probabilitas kelulusan")
         st.write("3 Semester : ", round(proba[0][0], 2))
         st.write("4 Semester : ", round(proba[0][1], 2))
@@ -295,34 +318,9 @@ elif option == 'Klasifikasi Kelompok':
         df = pd.read_excel(upload_file)
         df0 = pd.DataFrame(df)
         st.write(df0)
-        df1 = df.drop(['No', 'No. Pendaftaran', 'Nama Lengkap', 'Asal PT', 'Minor', 'Evaluator', 'Verifikator', 'Bobot TOEFL', 'Skor TOEFL', 'Nilai TOEFL', 'Reading', 'Speaking', 'Writing',
+        df1 = df.drop(['No', 'No. Pendaftaran', 'Nama Lengkap', 'Angkatan', 'Asal PT', 'Minor', 'Evaluator', 'Verifikator', 'Bobot TOEFL', 'Skor TOEFL', 'Nilai TOEFL', 'Reading', 'Speaking', 'Writing',
                        'Wawancara B. Ing', 'Bobot TPA', 'Skor TPA', 'Bobot', 'IPK', 'Tot Verbal', 'Tot Numeric', 'Tot Fig-Spa', 'Tot IQ', 'Klas', 'Nilai Psikotes', 'Nilai Total + Psikotes'], axis=1)
-        nama = df['Nama Lengkap']
-        df1.replace(
-            to_replace="Teknologi Media Game dan Piranti Bergerak", value="1", inplace=True)
-        df1.replace(to_replace="Jaringan Berbasis Informasi",
-                    value="2", inplace=True)
-        df1.replace(to_replace="Rakayasa Perangkat Lunak",
-                    value="3", inplace=True)
-        df1.replace(to_replace="Sistem Cerdas / Computer vision",
-                    value="4", inplace=True)
-        df1.replace(to_replace="Sistem Informasi", value="5", inplace=True)
-
-        df1.replace(to_replace="Tidak ada", value="1", inplace=True)
-        df1.replace(to_replace="Preparation", value="2", inplace=True)
-        df1.replace(to_replace="iBT", value="3", inplace=True)
-        df1.replace(to_replace="ITP", value="4", inplace=True)
-
-        df1.replace(to_replace="Tidak ada", value="1", inplace=True)
-        df1.replace(to_replace="Lokal", value="2", inplace=True)
-        df1.replace(to_replace="OTO Bappenas", value="3", inplace=True)
-
-        df1.replace(to_replace="C / Baik", value="1", inplace=True)
-        df1.replace(to_replace="B / Baik Sekali", value="2", inplace=True)
-        df1.replace(to_replace="A / Unggul", value="3", inplace=True)
-        st.subheader("Data Mahasiswa")
-        st.write(df1)
-
+        nama = df[['Nama Lengkap', 'Angkatan']]
         df1.replace(
             to_replace="Teknologi Media Game dan Piranti Bergerak", value="1", inplace=True)
         df1.replace(to_replace="Jaringan Berbasis Informasi",
@@ -379,6 +377,11 @@ elif option == 'Klasifikasi Kelompok':
         st.download_button(label='📥 Download hasil',
                            data=df_xlsx,
                            file_name='hasil_prediksi.xlsx')
+
+        bar_chart1 = px.histogram(row_prediksi, x='Kelulusan', y=None,
+                                  color='Angkatan', barmode='group',
+                                  height=400)
+        st.plotly_chart(bar_chart1)
 
         bar_chart2 = px.histogram(row_prediksi, x='Kelulusan', y=None,
                                   color='Lama_Kuliah', barmode='group',
